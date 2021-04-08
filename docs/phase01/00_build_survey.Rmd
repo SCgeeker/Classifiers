@@ -1,0 +1,94 @@
+---
+title: "Build survey"
+author: "Sau-Chin Chen"
+date: "2021/4/2"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## 調查目標
+
+1. 接受分類詞片語的人數比例
+2. 母語者經驗認定可搭配目標分類詞之實體物件名詞
+
+## 假設與問題
+
+### 確證性假設
+
+1A. 中性化量詞「個」之分類詞片語接受度，與表徵立體物件的分類詞片語接受度（「顆、粒」）呈現一致的正相關性。
+
+1B. 中性化量詞「個」之分類詞片語接受度，與表徵一維及平面物件的分類詞片語接受度（「條、根、枝、張、面、片」）呈現不一致的負相關性。
+
+2. 田意民等人(2002)選擇的分類詞及的MDS分佈，符合一維、平面及立體特徵的群集。
+
+### 探索性問題
+
+1. 新選的分類詞片語接受度，與表徵同一類物件形狀的分類詞片語接受度，相當有機會出現一致的正相關性。
+
+2. 新選的分類詞MDS分佈，相當有機會符合一維、平面及立體特徵的群集。
+
+3. 請參與者自行報告未列在調查問題，依經驗能與提示的分類詞搭配的實體物件名詞。自取語料有可能發現這些名詞。
+
+## 問卷設計
+
+問卷一共有五種版本，每個版本都有田意民等人(2002)選用的9項分類詞與90個名詞，各版本增加"幅","具","塊","枚","座"其中一項分類詞及平衡語料庫取出的10個搭配名詞。每個版本都有10項分詞與100個名詞組合的1000條分類詞片語，分類詞片語的呈現格式如「一片 白雲」。
+所有分類詞片語以分頁隨機的逐題呈現，參與者將逐題判斷是否接受每條分類詞片語的組成。
+1000條判斷題結束之後，參與者再逐一對每個分類詞，回答曾在問卷內看過，最能接受的搭配名詞，以及回答不在問卷之內，但是可以搭配的物件名詞。
+
+```{r sti_making, message=FALSE, warning=FALSE, include=FALSE}
+## Define the classifiers from targeted study
+THT_classifiers <- c("一條","一枝","一根","一張","一面","一片","一個","一顆","一粒")
+## Define the new classifiers for this study
+NEW_classifiers <- c("一幅","一具","一塊","一枚","一座")
+
+## 
+THT_sti <- read_csv(file="sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,`條`,`枝`,`根`,`張`,`面`,`片`,`個`,`顆`,`粒`) %>% pull(WORD)
+
+sti01 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_fu.csv") %>% filter(In < 11) %>% pull(WORD)
+
+sti02 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_ju.csv") %>% filter(In < 11) %>% pull(WORD)
+
+sti03 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_kuai.csv") %>% filter(In < 11) %>% pull(WORD)
+
+sti04 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_mei.csv") %>% filter(In < 11) %>% pull(WORD)
+
+sti05 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_zuo.csv") %>% filter(In < 11) %>% pull(WORD)
+
+if(!file.exists("sti")) {dir.create("sti", showWarnings = FALSE)}
+
+sti_set01 <- paste(rep(c(THT_classifiers,NEW_classifiers[1]),each=100),c(THT_sti,sti01), collapse = "\",\"") %>% write_lines(file="./sti/sti_list01.txt")
+
+sti_set02 <- paste(rep(c(THT_classifiers,NEW_classifiers[2]),each=100),c(THT_sti,sti02), collapse = "\",\"") %>% write_lines(file="./sti/sti_list02.txt")
+
+sti_set03 <- paste(rep(c(THT_classifiers,NEW_classifiers[3]),each=100),c(THT_sti,sti03), collapse = "\",\"") %>% write_lines(file="./sti/sti_list03.txt")
+
+sti_set04 <- paste(rep(c(THT_classifiers,NEW_classifiers[4]),each=100),c(THT_sti,sti04), collapse = "\",\"") %>% write_lines(file="./sti/sti_list04.txt")
+
+sti_set05 <- paste(rep(c(THT_classifiers,NEW_classifiers[5]),each=100),c(THT_sti,sti05), collapse = "\",\"") %>% write_lines(file="./sti/sti_list05.txt")
+```
+
+題目清單可由以下連結下載：
+
+- [題本01](sti/sti_list01.txt)
+- [題本02](sti/sti_list02.txt)
+- [題本03](sti/sti_list03.txt)
+- [題本04](sti/sti_list04.txt)
+- [題本05](sti/sti_list05.txt)
+
+
+## 問卷部署及參與者來源
+
+所有問卷將透過塔拓問卷代發平台( https://www.tatoh.com.tw/ )部署，收集台灣各地區參與者回覆，參與者須中文母語人士，小學至高中都在台灣地區完成教育。每個版本預定收集至少40位參與者。
+
+問卷題目範本見[這份檔案](01a_formr_template.Rmd)。
+
+## 問卷資料處理
+
+
+
+## 問卷資料分析
+
