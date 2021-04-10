@@ -1,7 +1,7 @@
 ---
-title: "Build survey"
-author: "Sau-Chin Chen"
-date: "2021/4/2"
+title: "Hypothesis and Design"
+author: "陳紹慶"
+date: "2021/4/10"
 output: distill::distill_article
 ---
 
@@ -16,6 +16,8 @@ library(tidyverse)
 2. 母語者經驗認定可搭配目標分類詞之實體物件名詞
 
 ## 假設與問題
+
+第一階段預先註冊pdf檔可[由此下載](Prereg_phase01.pdf)。
 
 ### 確證性假設
 
@@ -45,9 +47,10 @@ THT_classifiers <- c("一條","一枝","一根","一張","一面","一片","一�
 ## Define the new classifiers for this study
 NEW_classifiers <- c("一幅","一具","一塊","一枚","一座")
 
-## 
+## Import the old classifiers and the inspected nouns
 THT_sti <- read_csv(file="sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,`條`,`枝`,`根`,`張`,`面`,`片`,`個`,`顆`,`粒`) %>% pull(WORD)
 
+## Import the selected nouns for the new classifiers
 sti01 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_fu.csv") %>% filter(In < 11) %>% pull(WORD)
 
 sti02 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_ju.csv") %>% filter(In < 11) %>% pull(WORD)
@@ -60,6 +63,7 @@ sti05 <- read_csv(file="./sinica_corpus/classifiers_pool/sti_zuo.csv") %>% filte
 
 if(!file.exists("sti")) {dir.create("sti", showWarnings = FALSE)}
 
+## Making of stimuli lists
 sti_set01 <- paste(rep(c(THT_classifiers,NEW_classifiers[1]),each=100),c(THT_sti,sti01), collapse = "\",\"") %>% write_lines(file="./sti/sti_list01.txt")
 
 sti_set02 <- paste(rep(c(THT_classifiers,NEW_classifiers[2]),each=100),c(THT_sti,sti02), collapse = "\",\"") %>% write_lines(file="./sti/sti_list02.txt")
@@ -88,7 +92,37 @@ sti_set05 <- paste(rep(c(THT_classifiers,NEW_classifiers[5]),each=100),c(THT_sti
 
 ## 問卷資料處理
 
+```{r pseudo_data, include=FALSE}
+## Making of pseudo data
+## Load items
+items_set01 <- paste(rep(c(THT_classifiers,NEW_classifiers[1]),each=100),c(THT_sti,sti01))
+write_csv(
+    data.frame(## Pseudo ID of 40 participants
+ID = rep(paste0("s",sprintf("%03d",1:40)),each=1000),
+Items = rep(items_set01,40),
+## Pseudo responses of 25 participants
+Response = apply(matrix(rep(c(0,1),1000*40),nc=2,byrow = TRUE),1,sample,size=1)
+)
+    ,file = "data/pseudo_responses01.csv")
+```
+
+任何版本的題本收集到的反應資料，如同[虛擬檔案](data/pseudo_responses01.csv)的內容。
 
 
 ## 問卷資料分析
+
+根據假設1A，總計每位參與者對各項分類詞之接受比率，計算各分類詞之間的相關係數。每個題本的資料可產生如以下的相關係數矩陣。
+
+```{r pseudo_cor}
+data001 <- read_csv(file = "data/pseudo_responses01.csv")
+classifier_summary <- data001 %>%
+    separate(Items,c("Classifier","Noun"),sep = " ") %>%
+    unite("ID_Item",ID:Classifier, sep = " ") %>%
+    group_by(ID_Item) %>%
+    summarise(Prop = mean(Response)) %>%
+    separate(ID_Item,c("ID","Classifier"),sep = " ") %>%
+    as_tibble() %>%
+    pivot_wider(names_from = "Classifier",values_from = "Prop")
+cor(classifier_summary[,-1]) %>% as_tibble()
+```
 

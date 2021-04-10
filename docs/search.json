@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-04-08T16:44:52+08:00"
+      "last_modified": "2021-04-10T21:20:05+08:00"
     },
     {
       "path": "index.html",
@@ -14,13 +14,13 @@
       "description": "\"中文閱讀的心智模擬效應：探索分類詞詞彙知識增益作用\"研究計畫進度追踪及公開資訊。\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-04-08T16:44:52+08:00"
+      "last_modified": "2021-04-10T21:20:06+08:00"
     },
     {
       "path": "log.html",
       "author": [],
       "contents": "\r\n\r\nContents\r\n準備紀錄\r\n第一階段 分類詞~物件名詞契合度調查\r\n\r\n\r\n準備紀錄\r\n第一階段 分類詞~物件名詞契合度調查\r\n整理素材\r\n分類詞來源：(stimuli_process.R)\r\n田意民等人(2002)九項分類詞\r\n何萬順等(2011,2020)61項分類詞，其中26項表徵物件形狀\r\n物件名詞來源：\r\n田意民等人(2002)選用的124項名詞(stimuli_process.R)\r\n平衡語料庫查詢何萬順等(2011,2020)26項表徵物件形狀項分類詞(Nf)，跟隨Nf的實體物件名詞Na(read_items.R) 2-1. 使用進階查詢，設定過濾條件包含 範圍起：1 範圍迄： * 詞類=Na 可得分類詞(Nf)+實體名詞(Na)的結果。\r\ne.g., “個(Nf)”共有10830條Nf+Na的結果\r\n2-2. 總計查到的分類詞之實體名詞個數(Type frequency)及總次數(token freqency) (summar_items.R) terms_summary.csv\r\nTHT分類詞與物件名詞調查:\r\n四項實驗一共選用120個實體物件名詞。\r\n計算所有形狀類分分類詞搭配的實體名詞個數(THT_checking.R -> THT_nouns_check.csv)\r\nTHT有研究的分類詞 tiao(條) 9\r\nzhi(枝) 12\r\ngen(根) 25\r\nzhang(張) 15\r\nmian(面) 6\r\npian(片) 11\r\nge(個) 18\r\nke(顆) 11\r\nli(粒) 6\r\nTHT未研究的分類詞 dian(點) 2\r\njie(節) 1 1D\r\nban(瓣) 1 2D\r\nduo(朵) 3 2D\r\nfeng(封) 0 2D fu(幅) 4 2D ye(葉) 0 2D zheng(幀) 0 2D\r\nding(頂) 0 3D\r\nmei(枚) 2 3D ju(具) 1 3D juan(卷) 2 3D kuai(塊) 8 3D zun(座) 0 3D\r\nTHT研究一的物件名詞有8個無平衡語料庫4.0之資料。\r\n調查項目準備\r\n調查問卷發佈平台 https://www.tatoh.com.tw/\r\n",
-      "last_modified": "2021-04-08T16:44:53+08:00"
+      "last_modified": "2021-04-10T21:20:07+08:00"
     }
   ],
   "collections": []
