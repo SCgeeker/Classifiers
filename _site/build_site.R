@@ -1,8 +1,8 @@
 library(distill)
-setwd("_site")
 ## Run this code before you update the site
-rmarkdown::clean_site(input = ".",preview = FALSE)
+rmarkdown::clean_site(input = "./docs/",preview = FALSE)
 ## Copy the latest preregistered plans
+setwd("_site")
 
 ## Update the website content
 rmarkdown::render_site(encoding = "UTF-8")
