@@ -1,0 +1,146 @@
+---
+title           : "分類詞及心智模擬效應研究～第一階段"
+shorttitle      : "第一階段預先註冊"
+date            : "`r Sys.setlocale('LC_TIME', 'C'); format(Sys.time(), '%Y 年 %m 月 %d 日')`"
+
+author: 
+  - name        : 陳紹慶
+    affiliation : 1
+  - name        : 何萬順
+    affiliation : "2,3"
+
+affiliation:
+  - id          : 1
+    institution : 慈濟大學
+  - id          : 2
+    institution : 東吳大學
+  - id          : 3
+    institution : 政治大學
+
+##bibliography: "Classifier_Objects.bib"
+
+output: 
+  prereg::rr_prereg:
+    latex_engine: xelatex
+    includes:
+      in_header: "MyChtHeader.tex"
+---
+
+
+<!-- If you can answer these TEN questions you will have built the engine of a Stage 1 Registered Report -->
+
+## 研究問題
+<!-- 1) What is the main question being addressed in your study?
+Why is it important that we answer this question? What’s the big picture? -->
+
+(1)運用田意民等人(2002) 的配合接受度評估方法，重現田意民等人收集9個表徵物體形狀的分類詞與名詞配合接受度資料，符合線性(一維)、平面(二維)、立體(三維)等三種向度分佈。
+(2)賴宛君 (2011)、陳羿如與何萬順 (2020)整理22個表徵物體形狀的分類詞(包括田意民等人研究的9個)，測試有足夠語料的分類詞，與高接受度的名詞契合三種形狀向度。
+
+
+## 測量變項
+<!-- 2) Describe the key independent and dependent variable(s), specifying how they will be measured. Ensure that they are defined precisely. -->
+
+每對分類詞─名詞評定為契合的參與者人數比例。
+
+
+## 假設
+<!-- 3) What are your hypotheses? Ensure that your predictions are defined precisely in terms of the specific IVs and DVs. Listing them as H0, H1, H2....Hn is recommended. -->
+
+1. 田意民等人選用的分類詞─名詞契合度集群分析，與原始研究一致。
+2. 田意民等人選用的形狀分類詞與「個」的相關係數，與原始研究一致。
+3. 非田意民等人選用的分類詞─名詞契合度集群分析，符合何萬順的分類。
+
+
+## 量表分派
+<!-- 4) How many and which conditions will participants/samples be assigned to? Where applicable be sure to include details of randomisation, blinding and counterbalancing. Make it clear whether the design is within-subjects, between-subjects, mixed, or other. -->
+
+由14項分類詞及搭配的140項名詞，組合成五種量表題本。每種題本包括田意民等人(2002)的810組分類詞片語。新選5項分類詞與搭配的名詞拆分為五組，與田意民等人選用的九項分類詞及90項名詞組成五種1000組片語，構成五種量表題本。構成方法詳見公開網頁：https:// /phase01/00_build_survey.html
+
+
+## 資料收集
+<!-- 5) How many observations will be collected and what rule will you use to terminate data collection? Ensure that your stopping rule takes into account any data exclusions. If adopting null hypothesis significance testing, what power will your study achieve? What effect size will you target and why? Remember that you are choosing the smallest effect size of theoretical or applied interest, or the smallest you can feasibly detect. For an actual RR you can use pilot data to help motivate this estimate, but you shouldn’t rely on pilot data alone because it is vulnerable to bias. If adopting Bayesian sampling methods, what is your prior? And what is your criterion Bayesfactor for asserting relative support of H0 or H1, or your maximum resource limit? -->
+
+每位參與者隨機分派進行一種量表。採用網路問卷收集參與者反應。使用拓塔收集台灣地區有高中學歷者的資料
+https://www.tatoh.com.tw/
+
+
+
+## 有效資料標準
+<!-- 6) What are your study inclusion criteria? How will participants/samples be recruited/included and under what specific rules? -->
+
+1. 完成所有問題。
+2. 答是率或答否率在70%以下。
+
+
+## 無效資料標準
+<!-- 7) What are your data exclusion criteria? State rules for excluding data both at the level of samples/participants (within groups) and at the level of raw data (within samples/participants), e.g. conditions involving data quality, completeness and outliers. Remember to be comprehensive: exclusion criteria are very difficult to change after data collection has commenced because doing so risks introducing bias. Think about previous experiments you have done and all the reasons you have ever thrown out a data set or data point. -->
+
+1. 未完成所有問題。
+2. 答是率或答否率在70%以上。
+
+
+## 資料品質檢測
+<!-- 8) What positive controls or quality checks will confirm that the obtained results are able to provide a fair test of the stated hypothesis? WHAT’S THIS? A positive control tests the existence of phenomena that would confirm that the IV, DV or instrumentation was used correctly and is therefore capable of testing the main study predictions. One of the most famous positive control experiments was the use of the Galileo spacecraft to test for the existence of life on Earth (see: https://www-pw.physics.uiowa.edu/~dag/publications/1993_ASearchForLifeOnEarthFromTheGalileoSpacecraft_NATURE.pdf ). If the instrumentation on the probe couldn’t detectlife on Earth (i.e. had the positive control failed), then it would not be reasonable to use to the probe to test the hypothesis that life existed on other planets. Not all experimental designs have suitable positive controls. Where a positive control isn’t possible, think of what quality checks or verifications you would build into your design before results are known to convince a skeptic that you had conducted the experiment to a sufficient standard (e.g. noise within certain limits etc.). Make sure these are independent of your main hypothesis tests.  Where a positive control (e.g. manipulation check) or quality check (e.g. lack of floor or ceiling effects in data) requires a statistical test, ensure that the test is adequately powered or sampled. -->
+
+依照假設1A，總計每位參與者對應每項分類詞的片語接受比率。每種題本資料可獲得如虛擬資料的相關係數矩陣。
+
+
+## 確證性分析
+<!-- 9) Specify exactly which analyses you will conduct to examine the main question/hypothesis(es). Ensure that there is an exact correspondence between each scientific hypothesis and each statistical test. Failure to precisely specify these links is one of the main reasons RRs are rejected
+If your analysis strategy will depend on the results (e.g. normal vs. non-normal distribution) then specify the contingencies for making different choices, i.e. IF-THEN statements. In the event of a negative result, would you be happy to conclude that there “was no evidence of a difference” between conditions, or would you instead want to be able to make the stronger claim that “there is evidence of no difference between conditions”? The first inference is limited to absence of evidence while the second (stronger) one refers to evidence of absence. If you want to make the stronger inference, you will need Bayesian inferential methods (see: https://link.springer.com/content/pdf/10.3758%2Fs13423-017-1230-y.pdf ) or frequentist equivalence testing (see: https://journals.sagepub.com/doi/pdf/10.1177/1948550617697177 ). -->
+
+1. 以分類詞為單位，接受度比例的集群分析
+2. 分類詞「個」之接受度比例，與其他分類詞的相關分析
+
+<!-- 10) Are you proposing to collect new data or analyse existing data? If the proposal involves existing data, what steps will you take to ensure that your analysis plan isn’t biased by any prior observation you have had of the data? -->
+
+
+
+<!-- You might be wondering: why is there no section for specifying exploratory analyses? That’s because for RRs we usually don’t allow authors to specify exploratory analyses in Stage 1 submissions. A central strength of the RR format is the unequivocal distinction it draws between confirmatory pre-registered analyses and exploratory unregistered analyses. Pre-specifying (usually vague) plans for exploratory analyses blurs this separation. Any analysis that can be precisely planned should be specified as confirmatory at Stage 1, even if a secondary hypothesis. And any analysis that can’t be precisely planned should be withheld until Stage 2, where it is then introduced and comprehensively reported in the Exploratory Analyses section of the Results. -->
+
+
+<!-- Tips for Avoiding Desk Rejection at Stage 1
+
+Many Registered Report submissions are desk rejected at Stage 1, prior to in-depth review,for failing to sufciently meet the Stage 1 editorial criteria. In many such cases, authors areinvited to resubmit once specifc shortcomings are addressed, although major problems canlead to outright rejection. To help minimize the chances of authors’ submissions being deskrejected, we list below the top ten reasons why Stage 1 submissions are rejected prior toreview.
+
+1. Cover letter doesn’t make necessary statements concerning ethics, data archiving, andso forth (check specifc author guidelines).
+
+2. The protocol contains insufcient methodological detail to enable replication and preventresearcher degrees of freedom. One commonly neglected area is the criteria for excludingdata,   both   at   the   level   of   animals/participants   and   at   the   level   of   data   withinanimals/participants. In the interests of clarity, we recommend listing these criteriasystematically rather than presenting them in prose.
+
+3. Lack of correspondence between the scientifc hypotheses and the pre-registeredstatistical tests. This is a common problem and severe cases are likely to be desk rejectedoutright. To maximize clarity of correspondence between predictions and analyses, authorsare encouraged to number their hypotheses in the Introduction and then number theproposed analyses in the Methods to make clear which analysis tests which prediction.Ensure also that power analysis, where applicable, is based on the actual test proceduresthat will be employed to test those hypotheses; e.g. don’t propose a power analysis basedon an ANOVA but then suggest a linear mixed efects model to test the hypothesis.
+
+4. Power analysis, where applicable, fails to reach the minimum level stated in journal policy.
+
+5. Power analysis is over-optimistic (e.g. based on previous literature but not taking intoaccount publication bias) or insufciently justifed (e.g. based on a single point estimatefrom a pilot experiment or previous study). Proposals should be powered to detect thesmallest efect that is plausible and of theoretical value. Pilot data can help inform thisestimate but is unlikely to form an acceptable basis, alone, for choosing the target efectsize.
+
+6. Intention to infer support for the null hypothesis from statistically non-signifcant results,without proposing use of Bayes factors or frequentist equivalence testing.
+
+7. Inclusion of exploratory analyses in the analysis plan. Manuscripts proposing exploratoryanalyses will usually be desk rejected until such analyses are removed because inclusion ofexploratory “plans” at Stage 1 blurs the line between confrmatory and exploratoryoutcomes at Stage 2. Instead, such analyses can be included at Stage 2 and need not bepre-registered. Under some circumstances, exploratory analyses could be discussed atStage 1 where they are necessary to justify study variables or procedures that are includedin the design exclusively for exploratory analysis.
+
+8. Failure to clearly distinguish work that has already been done from work that is planned.Where a proposal contains a mixture of pilot work that has already been undertaken and aproposal for work not yet undertaken, authors should use the past tense for pilot work butthe future tense for the proposed work. At Stage 2, all descriptions shift to past tense.
+
+9. Lack of pre-specifed positive controls or other quality checks, or an appropriate justifcation for their absence. We recognise that positive controls are not possible with allstudy designs, in which case authors should discuss why they are not included.
+
+10. Where applicable, lack of power analysis within proposed positive controls that dependon hypothesis testing. -->
+
+
+# 參考文獻
+## 
+\vspace{-2pc}
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{-1in}
+\setlength{\parskip}{8pt}
+\noindent
+
+
+陳羿如、何萬順。 (2020)。 華語分類詞的界定與教學上的分級。 華文世界， 126。
+
+賴宛君。 (2011)。 準確界定漢語中分類詞 [碩士論文]。 國立政治大學。
+
+田意民、曾志朗、洪蘭(2002)。 漢語分類詞的語義與認知基礎：功能語法觀點。 語言暨語言學， 3(1)， 101–132。
+
+中文詞知識庫小組。 (1998)。 「中央研究院漢語料庫的內容與說明」，中文詞知識庫小組技術報告＃98-04。 中央研究院。
+
+
+
+
