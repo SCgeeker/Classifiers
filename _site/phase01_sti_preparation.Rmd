@@ -1,0 +1,126 @@
+---
+title: 分類詞及實體名詞材料庫
+author: 陳紹慶
+date: "`r Sys.Date()`"
+output:  distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## 分類詞來源
+
+賴宛君 (2011)、陳羿如與何萬順(2020)的61項分類詞，其中26項表徵物件形狀。田意民等人(2002)的九項分類詞，其中七項符合何萬順等人的形狀分類，「個」與「條」屬於「分離性」分類詞。
+
+
+## 分類詞及名詞之語料
+
+根據26項表徵物件形狀的分類詞，我們從平衡語料庫4.0(CKIP 1999)查詢語料並下載整理，各項分類詞的原始語料存於獨立文字檔，以漢語拼音命名。原始語料篩選出Nf緊接Na的條目，條目內取出分類詞及名詞，範例如下段。構成分類詞片語存入`selecting_[classifier name]_terms.txt`的純文字檔案。
+
+```
+一頂假髮
+一朵桂花
+一根拐杖
+```
+
+### 目標研究實驗材料整理
+
+田意民等人(2002)選擇的名詞來自平衡語料庫3.0(CKIP, 1995)，語料來源與條目數量和目前學術界使用的平衡語料庫4.0(CKIP 1999)有差距。首先檢視田意民等人的研究一選用的分類詞及名詞，與平衡語料庫4.0抽出的分類詞片語之對應狀況。
+
+```{r sti_overview, echo=FALSE, message=FALSE, warning=FALSE}
+THT_sti <- read_csv(file="phase01_sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,`條`,`枝`,`根`,`張`,`面`,`片`,`個`,`顆`,`粒`)
+THT_alternative <- read_csv(file="phase01_sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,瓣,點,頂,朵,封,幅,節,具,卷,管,面,葉,幀,尊)
+knitr::kable(THT_sti)
+```
+
+整理發現研究一使用的90個名詞，其中`r THT_sti %>% pull(POS) %>% is.na() %>% sum()`個名詞並未有與分類詞一同出現的語料。名詞可搭配的分類詞次數分佈如下圖：
+
+```{r hist01, echo=FALSE}
+barplot(table(apply(THT_sti[,5:13]=="V",1,sum)),  xlab = "搭配次數",ylab="總計名詞數",main = "分類詞 - 名詞搭配次數直方圖")
+```
+
+其中有搭配2,3或4個分類詞的名詞是`r THT_sti$WORD[which(apply(THT_sti[,5:13]=="V",1,sum) %in% c(2,3,4))]`。
+
+再來檢視由何萬順等人認定，表徵物件形狀的分類詞，與田意民等人選用名詞的搭配次數分佈狀況。
+
+```{r hist02, echo=FALSE}
+barplot(table(apply(THT_alternative[,5:18]=="V",1,sum,na.rm=TRUE)),  xlab = "搭配次數",ylab="總計名詞數",main = "分類詞 - 名詞搭配次數直方圖")
+```
+
+
+其中有搭配2或3個分類詞的名詞是`r THT_alternative$WORD[which(apply(THT_alternative[,5:18]=="V",1,sum,na.rm=TRUE) %in% c(2,3))]`。
+
+
+### 形狀表徵分類詞語料整理
+
+匯入分類詞片語檔案，整理目標研究未收錄的名詞數量。
+
+```{r import_terms, echo=FALSE}
+## list file names
+termfiles <- list.files(path = "phase01_sinica_corpus/classifiers_pool/",pattern = "*_terms.txt$")
+
+## import the terms as the data frame
+counts_table <- data.frame(classifier = NULL, N = NULL)
+
+for(termfile in termfiles){
+classifier_tmp <- read_lines(file=paste0("phase01_sinica_corpus/classifiers_pool/",termfile) )%>% str_split(pattern = ",") %>% lapply(as.data.frame.list,col.names=c("WORD","N")) %>% bind_rows()
+
+## store how many nouns out of THT sti
+counts_table = bind_rows(counts_table, 
+c(WORD = (str_split(termfile,"_") %>% unlist())[2], N = sum(!(classifier_tmp$WORD %in% THT_sti$WORD))))
+
+}
+
+## Replace the pinyin with the characters
+counts_table$WORD <- c("瓣","點","頂","朵","封","幅","個","根","節","具","卷","顆","塊","粒","枚","面","片","條","葉","張","幀","枝","尊","座")
+
+## Mark the classifiers in THT study
+THT = counts_table$WORD %in% c("條","枝","根","張","面","片","個","顆","粒")
+THT[THT == TRUE] <- "V"
+THT[THT == FALSE] <- ""
+counts_table <- as_tibble(cbind(counts_table, THT))
+
+print(arrange(counts_table,desc(THT)),n=nrow(counts_table))
+```
+
+上表顯示部分分類詞片語的語料數量不足，第一階段的問卷將不納入名詞數量未達50的分類詞。因此納入的新選分類詞有:點、幅、具、塊、枚、座。
+
+```{r filter, include=FALSE}
+## Take the selected classifiers
+selected_files <- termfiles[c(2,6,10,13,15,24)]
+
+for(selected_terms in selected_files){
+    terms_tmp <- read_lines(file=paste0("phase01_sinica_corpus/classifiers_pool/",selected_terms) )%>% str_split(pattern = ",") %>% lapply(as.data.frame.list,col.names=c("WORD","N")) %>% bind_rows() %>% filter(!(WORD %in% THT_sti$WORD))
+
+write_csv(terms_tmp,file = paste0("phase01_sinica_corpus/classifiers_pool/stipool_", (str_split(selected_terms,"_") %>% unlist())[2],".csv"))
+}
+
+```
+
+檢視納入的分類詞的候選名詞，分類詞「點」的物件名詞都是指稱無具體形狀的事物，因此決定捨棄。其他五項分類詞選出的名詞表列如下：
+
+```{r sti_table, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+stipools <- list.files(path = "phase01_sinica_corpus/classifiers_pool/",pattern = "stipool_[a-z]+_mark.csv")
+
+# erase "dian"
+#stipools <- stipools[-1]
+
+## Delete sti_[a-d].csv before rebuild the site
+
+sti_table <- NULL
+for(i in 1:length(stipools)){
+    sti_table <- cbind(sti_table,
+    assign((str_split(stipools[i],"_") %>% unlist())[2],
+           paste((read_csv(paste0("phase01_sinica_corpus/classifiers_pool/",stipools[i]) ) %>% filter(!is.na(In)) %T>% write_csv(file=paste0("phase01_sinica_corpus/classifiers_pool/sti_",(str_split(stipools[i],"_") %>% unlist())[2],".csv") ) %>% pull(WORD)), collapse = "," ) )
+    )
+}
+colnames(sti_table) <- c("幅","具","塊","枚","座")
+
+write_csv(as_tibble(sti_table),file = "phase01_sinica_corpus/classifiers_pool/sti_table.csv")
+
+as_tibble(sti_table)
+```
+
+以上表格儲存於["sti_table.csv"](phase01_sinica_corpus/classifiers_pool/sti_table.csv)之內。

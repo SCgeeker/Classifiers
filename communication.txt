@@ -1,0 +1,8 @@
+object 的 orientation bias/preference
+在無bias的語境下，能否分辨是因為object lexicon本身有，還是 classifier的影響
+
+
+large object無分類詞有effect
+small object無分類詞無effect
+先集中探討可數名詞
+接著探討不可數量詞

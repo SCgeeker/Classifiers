@@ -1,0 +1,28 @@
+---
+title: "中文閱讀的心智模擬效應"
+description: |
+   "中文閱讀的心智模擬效應：探索分類詞詞彙知識增益作用"研究計畫進度追踪及公開資訊。
+author:
+    - name: "陳紹慶"
+      url: https://scchen.com
+      affiliation: 慈濟大學
+      affiliation_url: https://www.tcu.edu.tw
+      orcid_id: 0000-0001-6092-6049
+    - name: "何萬順"
+      url: https://onesoonher.github.io/info/index.html
+      affiliation: 東海大學
+      affiliation_url: http://flld.thu.edu.tw/
+    - name: "顏乃欣"
+      url: http://tmbic.nccu.edu.tw/zh_tw/Center_member/-%E9%A1%8F%E4%B9%83%E6%AC%A3-75967689
+      affiliation: 政治大學
+      affiliation_url: https://www.nccu.edu.tw/
+output: 
+  distill::distill_article: 
+    toc: true
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE, include = FALSE)
+```
+

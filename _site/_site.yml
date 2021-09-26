@@ -1,0 +1,32 @@
+name: "Classifier_Object"
+title: "Classifiers comprehension"
+description: |
+  "中文閱讀的心智模擬效應：探索分類詞詞彙知識增益作用"研究計畫進度追踪及公開資訊網站。
+base_url: https://scgeeker.github.io/Classifiers/
+creative_commons: CC BY-NC
+output_dir: "docs"
+navbar:
+  search: true
+  right:
+    - text: "Home"
+      href: index.html
+      menu: 
+        - text: "Log"
+          href: log.html
+    - text: "Phase 1"
+      menu:
+        - text: "Preregistered Plan"
+          href: phase01_build_survey.html
+        - text: "Classifiers system"
+          href: phase01_classifier_system.html
+        - text: "Stimuli"
+          href: phase01_sti_preparation.html
+    - text: "About"
+      href: about.html
+  source_url: https://github.com/SCgeeker/Classifiers
+output: 
+  distill::distill_article:
+    toc: true
+    highlight: rstudio
+include: ["phase01"]
+exclude: ["*.txt", "*.csv","*.doc","*.odt","*.Rmd","sandbox","plans"]

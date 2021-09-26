@@ -1,0 +1,18 @@
+---
+title: "分類詞分級系統"
+author: "陳紹慶"
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r system, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="取自陳羿如 與何萬順 (2020)圖一; 改編自賴宛君(2011)"}
+knitr::include_graphics(path="img/classifiers_system.jpg")
+```
+
+
+句子閱讀心智模擬研究已確認有實驗效用的物件屬性，多數與形狀有關[(Chen et al. in submission)](https://osf.io/gq92w/)。本專案鎖定與**形狀**有關的分類詞，建立刺激資料庫，以及設計心智模擬實驗刺激句及物件圖片。
