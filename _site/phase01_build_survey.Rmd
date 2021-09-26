@@ -48,31 +48,31 @@ THT_classifiers <- c("一條","一枝","一根","一張","一面","一片","一�
 NEW_classifiers <- c("一幅","一具","一塊","一枚","一座")
 
 ## Import the old classifiers and the inspected nouns
-THT_sti <- read_csv(file="phase01_sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,`條`,`枝`,`根`,`張`,`面`,`片`,`個`,`顆`,`粒`) %>% pull(WORD)
+THT_sti <- read_csv(file="../phase01/sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,`條`,`枝`,`根`,`張`,`面`,`片`,`個`,`顆`,`粒`) %>% pull(WORD)
 
 ## Import the selected nouns for the new classifiers
-sti01 <- read_csv(file="phase01_sinica_corpus/classifiers_pool/sti_fu.csv") %>% filter(In < 11) %>% pull(WORD)
+sti01 <- read_csv(file="../phase01/sinica_corpus/classifiers_pool/sti_fu.csv") %>% filter(In < 11) %>% pull(WORD)
 
-sti02 <- read_csv(file="phase01_sinica_corpus/classifiers_pool/sti_ju.csv") %>% filter(In < 11) %>% pull(WORD)
+sti02 <- read_csv(file="../phase01/sinica_corpus/classifiers_pool/sti_ju.csv") %>% filter(In < 11) %>% pull(WORD)
 
-sti03 <- read_csv(file="phase01_sinica_corpus/classifiers_pool/sti_kuai.csv") %>% filter(In < 11) %>% pull(WORD)
+sti03 <- read_csv(file="../phase01/sinica_corpus/classifiers_pool/sti_kuai.csv") %>% filter(In < 11) %>% pull(WORD)
 
-sti04 <- read_csv(file="phase01_sinica_corpus/classifiers_pool/sti_mei.csv") %>% filter(In < 11) %>% pull(WORD)
+sti04 <- read_csv(file="../phase01/sinica_corpus/classifiers_pool/sti_mei.csv") %>% filter(In < 11) %>% pull(WORD)
 
-sti05 <- read_csv(file="phase01_sinica_corpus/classifiers_pool/sti_zuo.csv") %>% filter(In < 11) %>% pull(WORD)
+sti05 <- read_csv(file="../phase01/sinica_corpus/classifiers_pool/sti_zuo.csv") %>% filter(In < 11) %>% pull(WORD)
 
-if(!file.exists("phase01_sti")) {dir.create("phase01_sti", showWarnings = FALSE)}
+if(!file.exists("../phase01/sti")) {dir.create("../phase01/sti", showWarnings = FALSE)}
 
 ## Making of stimuli lists
-sti_set01 <- paste(rep(c(THT_classifiers,NEW_classifiers[1]),each=100),c(THT_sti,sti01), collapse = "\",\"") %>% write_lines(file="phase01_sti/sti_list01.txt")
+sti_set01 <- paste(rep(c(THT_classifiers,NEW_classifiers[1]),each=100),c(THT_sti,sti01), collapse = "\",\"") %>% write_lines(file="../phase01/sti/sti_list01.txt")
 
-sti_set02 <- paste(rep(c(THT_classifiers,NEW_classifiers[2]),each=100),c(THT_sti,sti02), collapse = "\",\"") %>% write_lines(file="phase01_sti/sti_list02.txt")
+sti_set02 <- paste(rep(c(THT_classifiers,NEW_classifiers[2]),each=100),c(THT_sti,sti02), collapse = "\",\"") %>% write_lines(file="../phase01/sti/sti_list02.txt")
 
-sti_set03 <- paste(rep(c(THT_classifiers,NEW_classifiers[3]),each=100),c(THT_sti,sti03), collapse = "\",\"") %>% write_lines(file="phase01_sti/sti_list03.txt")
+sti_set03 <- paste(rep(c(THT_classifiers,NEW_classifiers[3]),each=100),c(THT_sti,sti03), collapse = "\",\"") %>% write_lines(file="../phase01/sti/sti_list03.txt")
 
-sti_set04 <- paste(rep(c(THT_classifiers,NEW_classifiers[4]),each=100),c(THT_sti,sti04), collapse = "\",\"") %>% write_lines(file="phase01_sti/sti_list04.txt")
+sti_set04 <- paste(rep(c(THT_classifiers,NEW_classifiers[4]),each=100),c(THT_sti,sti04), collapse = "\",\"") %>% write_lines(file="../phase01/sti/sti_list04.txt")
 
-sti_set05 <- paste(rep(c(THT_classifiers,NEW_classifiers[5]),each=100),c(THT_sti,sti05), collapse = "\",\"") %>% write_lines(file="phase01_sti/sti_list05.txt")
+sti_set05 <- paste(rep(c(THT_classifiers,NEW_classifiers[5]),each=100),c(THT_sti,sti05), collapse = "\",\"") %>% write_lines(file="../phase01/sti/sti_list05.txt")
 ```
 
 題目清單可由以下連結下載：
@@ -109,17 +109,16 @@ sti_set05 <- paste(rep(c(THT_classifiers,NEW_classifiers[5]),each=100),c(THT_sti
 ## Making of pseudo data
 ## Load items
 items_set01 <- paste(rep(c(THT_classifiers,NEW_classifiers[1]),each=100),c(THT_sti,sti01))
-write_csv(
-    data.frame(## Pseudo ID of 40 participants
+pseudo_data <- data.frame(## Pseudo ID of 40 participants
 ID = rep(paste0("s",sprintf("%03d",1:40)),each=1000),
 Items = rep(items_set01,40),
 ## Pseudo responses of 25 participants
 Response = apply(matrix(rep(c(0,1),1000*40),nc=2,byrow = TRUE),1,sample,size=1)
 )
-    ,file = "phase01_data/pseudo_responses01.csv")
+write_csv(pseudo_data, file = "../phase01/data/pseudo_responses01.csv")
 ```
 
-任何版本的題本收集到的反應資料，如同[虛擬檔案](phase01_data/pseudo_responses01.csv)的內容。
+任何版本的題本收集到的反應資料，如同虛擬檔案的內容。
 
 
 ## 問卷資料分析
@@ -127,8 +126,8 @@ Response = apply(matrix(rep(c(0,1),1000*40),nc=2,byrow = TRUE),1,sample,size=1)
 根據假設1A，總計每位參與者對各項分類詞之接受比率，計算各分類詞之間的相關係數。每個題本的資料可產生如以下的相關係數矩陣。
 
 ```{r pseudo_cor}
-data001 <- read_csv(file = "phase01_data/pseudo_responses01.csv")
-classifier_summary <- data001 %>%
+#data001 <- read_csv(file = "../phase01/data/pseudo_responses01.csv")
+classifier_summary <- pseudo_data %>%
     separate(Items,c("Classifier","Noun"),sep = " ") %>%
     unite("ID_Item",ID:Classifier, sep = " ") %>%
     group_by(ID_Item) %>%

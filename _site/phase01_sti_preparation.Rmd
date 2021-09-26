@@ -30,8 +30,8 @@ library(tidyverse)
 田意民等人(2002)選擇的名詞來自平衡語料庫3.0(CKIP, 1995)，語料來源與條目數量和目前學術界使用的平衡語料庫4.0(CKIP 1999)有差距。首先檢視田意民等人的研究一選用的分類詞及名詞，與平衡語料庫4.0抽出的分類詞片語之對應狀況。
 
 ```{r sti_overview, echo=FALSE, message=FALSE, warning=FALSE}
-THT_sti <- read_csv(file="phase01_sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,`條`,`枝`,`根`,`張`,`面`,`片`,`個`,`顆`,`粒`)
-THT_alternative <- read_csv(file="phase01_sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,瓣,點,頂,朵,封,幅,節,具,卷,管,面,葉,幀,尊)
+THT_sti <- read_csv(file="../phase01/sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,`條`,`枝`,`根`,`張`,`面`,`片`,`個`,`顆`,`粒`)
+THT_alternative <- read_csv(file="../phase01/sinica_corpus/THT_nouns_check.csv",na = "NA")%>%filter(STUDY01 == "V") %>% select(WORD,POS,FREQ,RANK,瓣,點,頂,朵,封,幅,節,具,卷,管,面,葉,幀,尊)
 knitr::kable(THT_sti)
 ```
 
@@ -59,13 +59,13 @@ barplot(table(apply(THT_alternative[,5:18]=="V",1,sum,na.rm=TRUE)),  xlab = "搭
 
 ```{r import_terms, echo=FALSE}
 ## list file names
-termfiles <- list.files(path = "phase01_sinica_corpus/classifiers_pool/",pattern = "*_terms.txt$")
+termfiles <- list.files(path = "../phase01/sinica_corpus/classifiers_pool/",pattern = "*_terms.txt$")
 
 ## import the terms as the data frame
 counts_table <- data.frame(classifier = NULL, N = NULL)
 
 for(termfile in termfiles){
-classifier_tmp <- read_lines(file=paste0("phase01_sinica_corpus/classifiers_pool/",termfile) )%>% str_split(pattern = ",") %>% lapply(as.data.frame.list,col.names=c("WORD","N")) %>% bind_rows()
+classifier_tmp <- read_lines(file=paste0("../phase01/sinica_corpus/classifiers_pool/",termfile) )%>% str_split(pattern = ",") %>% lapply(as.data.frame.list,col.names=c("WORD","N")) %>% bind_rows()
 
 ## store how many nouns out of THT sti
 counts_table = bind_rows(counts_table, 
@@ -92,9 +92,9 @@ print(arrange(counts_table,desc(THT)),n=nrow(counts_table))
 selected_files <- termfiles[c(2,6,10,13,15,24)]
 
 for(selected_terms in selected_files){
-    terms_tmp <- read_lines(file=paste0("phase01_sinica_corpus/classifiers_pool/",selected_terms) )%>% str_split(pattern = ",") %>% lapply(as.data.frame.list,col.names=c("WORD","N")) %>% bind_rows() %>% filter(!(WORD %in% THT_sti$WORD))
+    terms_tmp <- read_lines(file=paste0("../phase01/sinica_corpus/classifiers_pool/",selected_terms) )%>% str_split(pattern = ",") %>% lapply(as.data.frame.list,col.names=c("WORD","N")) %>% bind_rows() %>% filter(!(WORD %in% THT_sti$WORD))
 
-write_csv(terms_tmp,file = paste0("phase01_sinica_corpus/classifiers_pool/stipool_", (str_split(selected_terms,"_") %>% unlist())[2],".csv"))
+write_csv(terms_tmp,file = paste0("../phase01/sinica_corpus/classifiers_pool/stipool_", (str_split(selected_terms,"_") %>% unlist())[2],".csv"))
 }
 
 ```
@@ -102,7 +102,7 @@ write_csv(terms_tmp,file = paste0("phase01_sinica_corpus/classifiers_pool/stipoo
 檢視納入的分類詞的候選名詞，分類詞「點」的物件名詞都是指稱無具體形狀的事物，因此決定捨棄。其他五項分類詞選出的名詞表列如下：
 
 ```{r sti_table, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-stipools <- list.files(path = "phase01_sinica_corpus/classifiers_pool/",pattern = "stipool_[a-z]+_mark.csv")
+stipools <- list.files(path = "../phase01/sinica_corpus/classifiers_pool/",pattern = "stipool_[a-z]+_mark.csv")
 
 # erase "dian"
 #stipools <- stipools[-1]
@@ -113,14 +113,14 @@ sti_table <- NULL
 for(i in 1:length(stipools)){
     sti_table <- cbind(sti_table,
     assign((str_split(stipools[i],"_") %>% unlist())[2],
-           paste((read_csv(paste0("phase01_sinica_corpus/classifiers_pool/",stipools[i]) ) %>% filter(!is.na(In)) %T>% write_csv(file=paste0("phase01_sinica_corpus/classifiers_pool/sti_",(str_split(stipools[i],"_") %>% unlist())[2],".csv") ) %>% pull(WORD)), collapse = "," ) )
+           paste((read_csv(paste0("../phase01/sinica_corpus/classifiers_pool/",stipools[i]) ) %>% filter(!is.na(In)) %T>% write_csv(file=paste0("../phase01/sinica_corpus/classifiers_pool/sti_",(str_split(stipools[i],"_") %>% unlist())[2],".csv") ) %>% pull(WORD)), collapse = "," ) )
     )
 }
 colnames(sti_table) <- c("幅","具","塊","枚","座")
 
-write_csv(as_tibble(sti_table),file = "phase01_sinica_corpus/classifiers_pool/sti_table.csv")
+write_csv(as_tibble(sti_table),file = "../phase01/sinica_corpus/classifiers_pool/sti_table.csv")
 
 as_tibble(sti_table)
 ```
 
-以上表格儲存於["sti_table.csv"](phase01_sinica_corpus/classifiers_pool/sti_table.csv)之內。
+以上表格儲存於["sti_table.csv"](/phase01/sinica_corpus/classifiers_pool/sti_table.csv)之內。
